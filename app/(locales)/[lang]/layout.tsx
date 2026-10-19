@@ -96,6 +96,9 @@ export async function generateMetadata({
     };
 }
 
+// Any segment other than a known locale is a 404, not a page rendered on demand.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
     return LOCALES.map((lang) => ({ lang }));
 }
