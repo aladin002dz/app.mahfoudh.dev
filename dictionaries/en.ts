@@ -11,6 +11,8 @@ export const en = {
         arChannel: "Arabic channel",
         enChannel: "English channel",
         footer: "Mahfoudh Arous. All rights reserved.",
+        visits: "site visits",
+        visitsSince: "since 19 Oct 2026",
         nav: {
             home: "Home",
             about: "About",
@@ -148,7 +150,8 @@ export const en = {
                 "Messages are private unless you tick the publication box. Even then, I review every message before it appears, and only the message, nickname, type and date are shown.",
                 "Your email is used only to reply to you. It's never published, shared, or added to any mailing list.",
                 "To limit spam, a hashed identifier derived from your IP address, changed daily, is kept for 24 hours. Your IP address itself is not stored.",
-                "This site counts page visits with Vercel Web Analytics, which uses no cookies and records only aggregated data."
+                "This site counts page visits with Vercel Web Analytics, which uses no cookies and records only aggregated data.",
+                "The public visit counter uses a random identifier in this tab's session storage for a 30-minute visit window. Supabase keeps it to prevent duplicate counts; identifiers older than 24 hours are removed when another visit is recorded. It stores no IP address or browsing history; the aggregate total is retained."
             ],
             deleteRequest: "To have a message or your email removed, write to"
         }
