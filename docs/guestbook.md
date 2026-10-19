@@ -11,6 +11,7 @@ browser form ──POST /api/feedback──▶ Next.js route (validation, honeyp
                                Supabase: submit_feedback()  ──▶ feedback table (pending)
 guestbook page ──on each visit──▶ Supabase: list_guestbook() ──▶ approved + publishable rows, no email
 Vercel Cron (daily) ──▶ /api/keep-alive ──▶ Supabase: keep_alive()
+/api/feedback, after a new row is stored ──▶ Resend ──▶ "new entry" email to the owner
 ```
 
 - The site only ever holds the **publishable** key. In the database that key (role
@@ -66,6 +67,10 @@ Supabase CLI: `supabase link` then `supabase db push`.)
 | `SUPABASE_PUBLISHABLE_KEY` | production publishable key | preview publishable key |
 | `FEEDBACK_RATE_LIMIT_SECRET` | random 64-hex string | a different random string |
 | `CRON_SECRET` | random 64-hex string | (not needed; crons run on production only) |
+| `RESEND_API_KEY` | Resend API key (sending access) | leave unset, or a separate key |
+| `FEEDBACK_NOTIFY_FROM` | `Guestbook <guestbook@mahfoudh.dev>` | same, only if a key is set |
+| `FEEDBACK_NOTIFY_TO` | optional; defaults to `CONTACT_EMAIL` | optional |
+| `FEEDBACK_NOTIFY_INCLUDE_MESSAGE` | leave unset (see below) | leave unset |
 
 Generate random values with:
 
@@ -77,7 +82,40 @@ For local development, copy `.env.example` to `.env.local` with the preview valu
 Without these variables the site still builds and runs; the form and guestbook
 show their "unavailable" state.
 
-### 4. Verify permissions with the public key
+### 4. New-entry email (optional)
+Every submission waits as `pending`, so the site emails you when one is stored.
+It uses [Resend](https://resend.com) (free tier: 3,000 emails a month, 100 a day)
+through its HTTP API; there is no SDK dependency.
+
+1. Create a Resend account and add `mahfoudh.dev` under **Domains**, then add the
+   DNS records it shows (SPF/DKIM TXT records; they sit alongside existing MX records).
+   Until the domain is verified, Resend only accepts `onboarding@resend.dev` as the
+   sender, and only delivers to the address you signed up with.
+2. **API Keys → Create**, permission **Sending access**, limited to `mahfoudh.dev`.
+3. Set `RESEND_API_KEY` and `FEEDBACK_NOTIFY_FROM` for **Production** only. Leave
+   them unset for **Preview** so test messages don't email you; if you want preview
+   emails, use a second key so revoking one doesn't affect the other.
+
+The email is sent only when `submit_feedback` answers `created`: never for honeypot
+hits, duplicate submissions, rate-limited or rejected requests. It is sent with
+`after()`, once the visitor already has their answer, so a slow or failing provider
+never delays or breaks the form. Failures are logged as
+`feedback: notification failed <HTTP status> <Resend error name>`, without the
+request or the email.
+
+What the email contains: category, locale, whether publication was allowed, and a
+link to the project's Table Editor (built from `SUPABASE_URL`). It does **not**
+contain the message, nickname or reply address, so Resend receives no visitor data
+and the privacy text needs no change.
+
+`FEEDBACK_NOTIFY_INCLUDE_MESSAGE=true` adds the message text. That sends visitor
+content to a third party (Resend, US-hosted), so before enabling it add Resend to the
+privacy section in `dictionaries/` and bump `PRIVACY_NOTICE_VERSION`.
+
+`FEEDBACK_NOTIFY_API_URL` replaces the Resend endpoint. It exists for local testing
+against a mock server; never set it on Vercel.
+
+### 5. Verify permissions with the public key
 In a terminal, with the production URL and publishable key:
 
 ```bash

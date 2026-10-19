@@ -1,5 +1,7 @@
 import { createHmac } from "node:crypto";
+import { after } from "next/server";
 import { getSupabase } from "../../../lib/supabase";
+import { notifyNewFeedback } from "../../../lib/notify";
 import { PRIVACY_NOTICE_VERSION, validateFeedback, type FieldError, type SubmitStatus } from "../../../lib/feedback";
 
 /** Comfortably above the largest valid payload (2,000-character message plus short fields). */
@@ -79,7 +81,10 @@ export async function POST(request: Request) {
         }
         if (data === "rate_limited") return reply("rate_limited", 429);
         // "duplicate" means this exact submission is already stored: a success for the visitor.
-        return reply("created", data === "created" ? 201 : 200);
+        if (data !== "created") return reply("created", 200);
+        // Tell the owner a new entry awaits moderation, after the visitor has their answer.
+        after(() => notifyNewFeedback(input));
+        return reply("created", 201);
     } catch (e) {
         console.error("feedback: Supabase unreachable", e instanceof Error ? e.name : "unknown");
         return reply("unavailable", 503);
