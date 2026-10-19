@@ -94,5 +94,63 @@ export const en = {
                 ]
             }
         }
+    },
+    guestbook: {
+        nav: "Guestbook",
+        privacyLink: "Privacy",
+        title: "Guestbook",
+        metaDescription: "Leave Mahfoudh Arous a suggestion, some feedback, or just a hello.",
+        prompt: "What should I build, teach, or write about next?",
+        intro: "Suggestions, feedback or just a hello: I read every message.",
+        cta: "Leave a message",
+        form: {
+            category: "Type of message",
+            categories: {
+                suggestion: "Suggestion",
+                feedback: "Feedback",
+                greeting: "Hello"
+            },
+            message: "Your message",
+            messageHint: "Plain text, up to 2,000 characters.",
+            nickname: "Nickname (optional)",
+            nicknameHint: "Shown with your message if it's published.",
+            email: "Email (optional)",
+            emailHint: "Only if you'd like a reply. Never published.",
+            publish: "You may publish this message in the guestbook after review.",
+            publishHint: "Leave unchecked to keep it private.",
+            honeypot: "Leave this field empty",
+            submit: "Send message",
+            submitting: "Sending…",
+            errors: {
+                message: "Write between 2 and 2,000 characters.",
+                category: "Choose a type of message.",
+                nickname: "Use 80 characters or fewer.",
+                email: "Enter a valid email address, or leave it empty."
+            },
+            invalid: "Please check the highlighted fields.",
+            success: "Thank you! Your message was received.",
+            successPublic: "If it's approved, it will appear on this page.",
+            another: "Send another message",
+            rateLimited: "You've sent several messages recently. Please try again in an hour.",
+            unavailable: "The guestbook is unavailable right now. Your text is still here: try again in a few minutes, or email me at"
+        },
+        entries: {
+            title: "From the guestbook",
+            empty: "No published messages yet. Yours could be the first.",
+            unavailable: "Messages can't be loaded right now. Please try again later.",
+            older: "Older messages",
+            newest: "Back to newest"
+        },
+        privacy: {
+            title: "Privacy",
+            items: [
+                "Your message, its type, the page language and the time are stored with Supabase. Your nickname and email are stored only if you give them.",
+                "Messages are private unless you tick the publication box. Even then, I review every message before it appears, and only the message, nickname, type and date are shown.",
+                "Your email is used only to reply to you. It's never published, shared, or added to any mailing list.",
+                "To limit spam, a hashed identifier derived from your IP address, changed daily, is kept for 24 hours. Your IP address itself is not stored.",
+                "This site counts page visits with Vercel Web Analytics, which uses no cookies and records only aggregated data."
+            ],
+            deleteRequest: "To have a message or your email removed, write to"
+        }
     }
 };

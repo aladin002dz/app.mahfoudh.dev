@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { localePath } from "../../lib/site";
 
 const languages = [
     { code: "en", label: "EN" },
@@ -12,14 +13,10 @@ const languages = [
 export default function LanguageSwitcher({ currentLang }: { currentLang: string }) {
     const pathname = usePathname();
 
-    // English is served from the bare domain, the other locales from /<lang>.
-    const redirectedPathName = (locale: string) => {
-        if (locale === "en") return "/";
-        if (!pathname || pathname === "/") return `/${locale}`;
-        const segments = pathname.split("/");
-        segments[1] = locale;
-        return segments.join("/");
-    };
+    // Same page in another locale: strip the current locale prefix, then let
+    // localePath add the new one (none for English, which lives at the bare path).
+    const page = (pathname ?? "").replace(/^\/(en|fr|ar)(?=\/|$)/, "").replace(/\/$/, "");
+    const redirectedPathName = (locale: string) => localePath(locale, page);
 
     return (
         <div dir="ltr" className="inline-flex gap-0.5 rounded-btn border border-line p-0.5">

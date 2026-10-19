@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import InlineScript from "../components/InlineScript";
+import SiteAnalytics from "../components/SiteAnalytics";
 import { fontVariables, themeInitScript } from "../fonts";
-import { SITE_URL, LANGUAGE_ALTERNATES, OG_IMAGE } from "../../lib/site";
+import { IS_PRODUCTION, SITE_URL, LANGUAGE_ALTERNATES, OG_IMAGE } from "../../lib/site";
 
 const title = "Mahfoudh Arous | Senior Software Engineer & Full-stack Developer";
 const description =
@@ -77,6 +78,7 @@ export default function RootLayout({
             </head>
             <body className={`${fontVariables} font-sans antialiased`}>
                 {children}
+                {IS_PRODUCTION && <SiteAnalytics />}
             </body>
         </html>
     );

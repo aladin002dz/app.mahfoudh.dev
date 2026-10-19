@@ -2,6 +2,16 @@ export const SITE_URL = "https://mahfoudh.dev";
 
 export const CONTACT_EMAIL = "hello@mahfoudh.dev";
 
+export const YT_FR = "https://www.youtube.com/@mahfoudh-tech-fr";
+export const YT_AR = "https://www.youtube.com/@mahfoudh-tech-ar";
+export const YT_EN = "https://www.youtube.com/@mahfoudh-tech-en";
+
+/**
+ * True only for Vercel's production deployment, never for previews or local
+ * builds. Vercel sets `VERCEL_ENV` at build time, so static pages bake it in.
+ */
+export const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
+
 export const LOCALES = ["en", "fr", "ar"] as const;
 export type Locale = (typeof LOCALES)[number];
 
@@ -19,6 +29,21 @@ export function isLocale(value: string): value is Locale {
 export function localeUrl(lang: string): string {
     return lang === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${lang}`;
 }
+
+/** Site-relative path of a page in a locale: English at the bare path, others under /<lang>. */
+export function localePath(lang: string, page = ""): string {
+    const prefix = lang === DEFAULT_LOCALE || !isLocale(lang) ? "" : `/${lang}`;
+    return `${prefix}${page}` || "/";
+}
+
+export const GUESTBOOK_PATH = "/guestbook";
+
+export const GUESTBOOK_ALTERNATES: Record<string, string> = {
+    en: `${SITE_URL}${GUESTBOOK_PATH}`,
+    fr: `${SITE_URL}/fr${GUESTBOOK_PATH}`,
+    ar: `${SITE_URL}/ar${GUESTBOOK_PATH}`,
+    "x-default": `${SITE_URL}${GUESTBOOK_PATH}`,
+};
 
 export const LANGUAGE_ALTERNATES: Record<string, string> = {
     en: SITE_URL,
