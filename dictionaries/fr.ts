@@ -94,5 +94,63 @@ export const fr = {
                 ]
             }
         }
+    },
+    guestbook: {
+        nav: "Livre d'or",
+        privacyLink: "Confidentialité",
+        title: "Livre d'or",
+        metaDescription: "Laissez à Mahfoudh Arous une suggestion, un avis ou simplement un bonjour.",
+        prompt: "Que devrais-je construire, enseigner ou écrire ensuite ?",
+        intro: "Suggestions, avis ou simple bonjour : je lis chaque message.",
+        cta: "Laisser un message",
+        form: {
+            category: "Type de message",
+            categories: {
+                suggestion: "Suggestion",
+                feedback: "Avis",
+                greeting: "Bonjour"
+            },
+            message: "Votre message",
+            messageHint: "Texte brut, 2 000 caractères maximum.",
+            nickname: "Pseudo (facultatif)",
+            nicknameHint: "Affiché avec votre message s'il est publié.",
+            email: "E-mail (facultatif)",
+            emailHint: "Uniquement si vous souhaitez une réponse. Jamais publié.",
+            publish: "J'accepte que ce message soit publié dans le livre d'or après relecture.",
+            publishHint: "Laissez décoché pour qu'il reste privé.",
+            honeypot: "Laissez ce champ vide",
+            submit: "Envoyer le message",
+            submitting: "Envoi…",
+            errors: {
+                message: "Écrivez entre 2 et 2 000 caractères.",
+                category: "Choisissez un type de message.",
+                nickname: "80 caractères maximum.",
+                email: "Saisissez une adresse e-mail valide, ou laissez le champ vide."
+            },
+            invalid: "Vérifiez les champs signalés.",
+            success: "Merci ! Votre message a bien été reçu.",
+            successPublic: "S'il est approuvé, il apparaîtra sur cette page.",
+            another: "Envoyer un autre message",
+            rateLimited: "Vous avez envoyé plusieurs messages récemment. Réessayez dans une heure.",
+            unavailable: "Le livre d'or est indisponible pour le moment. Votre texte est conservé ici : réessayez dans quelques minutes, ou écrivez-moi à"
+        },
+        entries: {
+            title: "Messages du livre d'or",
+            empty: "Aucun message publié pour l'instant. Le vôtre pourrait être le premier.",
+            unavailable: "Impossible de charger les messages pour le moment. Réessayez plus tard.",
+            older: "Messages plus anciens",
+            newest: "Revenir aux plus récents"
+        },
+        privacy: {
+            title: "Confidentialité",
+            items: [
+                "Votre message, son type, la langue de la page et l'heure d'envoi sont stockés chez Supabase. Votre pseudo et votre e-mail ne le sont que si vous les indiquez.",
+                "Les messages restent privés sauf si vous cochez la case de publication. Même dans ce cas, je relis chaque message avant qu'il n'apparaisse, et seuls le message, le pseudo, le type et la date sont affichés.",
+                "Votre e-mail sert uniquement à vous répondre. Il n'est jamais publié, partagé ni ajouté à une liste de diffusion.",
+                "Pour limiter le spam, un identifiant haché dérivé de votre adresse IP, renouvelé chaque jour, est conservé 24 heures. Votre adresse IP elle-même n'est pas stockée.",
+                "Ce site compte les visites avec Vercel Web Analytics, qui n'utilise aucun cookie et n'enregistre que des données agrégées."
+            ],
+            deleteRequest: "Pour faire supprimer un message ou votre e-mail, écrivez à"
+        }
     }
 };

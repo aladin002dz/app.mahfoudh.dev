@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "../../globals.css";
 import InlineScript from "../../components/InlineScript";
+import SiteAnalytics from "../../components/SiteAnalytics";
 import { fontVariables, themeInitScript } from "../../fonts";
 import {
+    IS_PRODUCTION,
     SITE_URL,
     LOCALES,
     LANGUAGE_ALTERNATES,
@@ -96,6 +98,9 @@ export async function generateMetadata({
     };
 }
 
+// Any segment other than a known locale is a 404, not a page rendered on demand.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
     return LOCALES.map((lang) => ({ lang }));
 }
@@ -119,6 +124,7 @@ export default async function LocaleLayout({
                 className={`${fontVariables} ${isArabic ? "font-arabic" : "font-sans"} antialiased`}
             >
                 {children}
+                {IS_PRODUCTION && <SiteAnalytics />}
             </body>
         </html>
     );

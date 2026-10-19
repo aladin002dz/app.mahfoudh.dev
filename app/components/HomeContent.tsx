@@ -1,18 +1,14 @@
 import Image from "next/image";
-import { Mail, ArrowUpRight } from "lucide-react";
-import { Github, Linkedin, Facebook, Twitter, Bluesky, Youtube } from "./Icons";
+import { Mail, ArrowUpRight, MessageSquare } from "lucide-react";
+import { Linkedin } from "./Icons";
 import ProjectCard from "./ProjectCard";
 import TalkCard from "./TalkCard";
 import Button from "./Button";
 import SectionLabel from "./SectionLabel";
-import ThemeToggle from "./ThemeToggle";
-import LanguageSwitcher from "./LanguageSwitcher";
+import SiteHeader from "./SiteHeader";
+import SiteFooter from "./SiteFooter";
 import { getDictionary } from "../../lib/dictionary";
-import { CONTACT_EMAIL } from "../../lib/site";
-
-const YT_FR = "https://www.youtube.com/@mahfoudh-tech-fr";
-const YT_AR = "https://www.youtube.com/@mahfoudh-tech-ar";
-const YT_EN = "https://www.youtube.com/@mahfoudh-tech-en";
+import { CONTACT_EMAIL, GUESTBOOK_PATH, YT_AR, YT_EN, YT_FR, localePath } from "../../lib/site";
 
 export default async function HomeContent({ lang }: { lang: string }) {
     const dict = await getDictionary(lang);
@@ -91,30 +87,9 @@ export default async function HomeContent({ lang }: { lang: string }) {
         },
     ];
 
-    const socials = [
-        { label: "GitHub", href: "https://github.com/aladin002dz", Icon: Github },
-        { label: "LinkedIn", href: "https://www.linkedin.com/in/mahfoudh-arous/", Icon: Linkedin },
-        { label: "YouTube FR", href: YT_FR, Icon: Youtube },
-        { label: "YouTube AR", href: YT_AR, Icon: Youtube },
-        { label: "YouTube EN", href: YT_EN, Icon: Youtube },
-        { label: "Facebook", href: "https://www.facebook.com/mahfoudh.arous", Icon: Facebook },
-        { label: "X", href: "https://x.com/mahfoudh_arous", Icon: Twitter },
-        { label: "Bluesky", href: "https://bsky.app/profile/mahfoudharous.bsky.social", Icon: Bluesky },
-    ];
-
     return (
         <div className={`min-h-screen bg-bg text-ink ${isArabic ? "font-arabic" : "font-sans"}`}>
-            <header className="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md">
-                <div className="mx-auto flex max-w-[1120px] items-center gap-4 px-6 py-3.5">
-                    <a href={isArabic ? "/ar" : lang === "fr" ? "/fr" : "/"} dir="ltr" className="font-sans text-[22px] font-semibold leading-none tracking-[-0.03em] text-ink">
-                        Mahfoudh<span className="text-accent">.</span>
-                    </a>
-                    <div className="ms-auto flex items-center gap-2.5">
-                        <LanguageSwitcher currentLang={lang} />
-                        <ThemeToggle />
-                    </div>
-                </div>
-            </header>
+            <SiteHeader lang={lang} />
 
             <main>
                 <section className="hairline-grid border-b border-line">
@@ -187,28 +162,23 @@ export default async function HomeContent({ lang }: { lang: string }) {
                         ))}
                     </div>
                 </section>
+
+                <section id="guestbook" className="border-t border-line bg-sunken">
+                    <div className="mx-auto flex max-w-[1120px] flex-col items-start gap-5 px-6 py-14 md:flex-row md:items-center md:justify-between md:py-18">
+                        <div className="flex flex-col gap-4">
+                            <SectionLabel index="04">{dict.guestbook.title}</SectionLabel>
+                            <p className="max-w-[28ch] text-[clamp(22px,2.6vw,28px)] font-semibold leading-tight text-pretty">{dict.guestbook.prompt}</p>
+                            <p className="text-muted">{dict.guestbook.intro}</p>
+                        </div>
+                        <Button href={localePath(lang, GUESTBOOK_PATH)} size="lg">
+                            <MessageSquare className="h-[18px] w-[18px]" />
+                            <span>{dict.guestbook.cta}</span>
+                        </Button>
+                    </div>
+                </section>
             </main>
 
-            <footer className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-x-8 gap-y-5 px-6 py-8">
-                <nav dir="ltr" className="flex flex-wrap gap-x-6 gap-y-3">
-                    {socials.map(({ label, href, Icon }) => (
-                        <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                            className="inline-flex items-center gap-2 font-sans text-sm font-medium leading-none text-muted transition-colors duration-150 hover:text-accent">
-                            <Icon className="h-[18px] w-[18px] shrink-0" />
-                            {label}
-                        </a>
-                    ))}
-                    <a href={`mailto:${CONTACT_EMAIL}`} aria-label="Email"
-                        className="inline-flex items-center gap-2 font-sans text-sm font-medium leading-none text-muted transition-colors duration-150 hover:text-accent">
-                        <Mail className="h-[18px] w-[18px] shrink-0" />
-                        Email
-                    </a>
-                </nav>
-                <p className="flex gap-1.5 font-mono text-xs font-medium leading-[1.2] text-subtle">
-                    <bdi dir="ltr">© {new Date().getFullYear()}</bdi>
-                    <span>{dict.home.footer}</span>
-                </p>
-            </footer>
+            <SiteFooter lang={lang} dict={dict} />
         </div>
     );
 }

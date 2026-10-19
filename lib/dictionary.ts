@@ -6,10 +6,11 @@ const dictionaries = {
     ar: () => import('../dictionaries/ar').then((module) => module.ar),
 };
 
-export const getDictionary = async (locale: string) => {
+export type Dictionary = Awaited<ReturnType<(typeof dictionaries)["en"]>>;
+
+export const getDictionary = async (locale: string): Promise<Dictionary> => {
     if (locale in dictionaries) {
-        // @ts-ignore
-        return dictionaries[locale]();
+        return dictionaries[locale as keyof typeof dictionaries]();
     }
     return dictionaries.en();
 };
