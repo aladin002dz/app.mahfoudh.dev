@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export interface LightboxPhoto { src: string; width: number; height: number; alt: string }
@@ -18,6 +18,7 @@ interface LightboxProps {
 }
 
 const SWIPE_THRESHOLD = 50;
+const PHOTO_SIZES = "92vw";
 
 const navButton = "grid h-11 w-11 place-items-center rounded-full bg-black/50 text-white transition-colors duration-150 hover:bg-black/70";
 
@@ -39,11 +40,17 @@ export default function Lightbox({ photos, startIndex, event, year, role, labels
         return () => { document.body.style.overflow = overflow; };
     }, []);
 
-    // Warm the neighbouring photos so paging feels instant.
+    // Warm the same responsive, optimized variants used by the visible photo.
     useEffect(() => {
-        for (const step of [-1, 1]) {
-            const neighbour = photos[(index + step + count) % count];
-            new window.Image().src = neighbour.src;
+        if (count < 2) return;
+        const neighbours = new Set([(index - 1 + count) % count, (index + 1) % count]);
+        for (const neighbourIndex of neighbours) {
+            const neighbour = photos[neighbourIndex];
+            const { props } = getImageProps({ ...neighbour, sizes: PHOTO_SIZES });
+            const preload = new window.Image();
+            preload.sizes = props.sizes ?? PHOTO_SIZES;
+            preload.srcset = props.srcSet ?? "";
+            preload.src = props.src;
         }
     }, [index, count, photos]);
 
@@ -104,7 +111,7 @@ export default function Lightbox({ photos, startIndex, event, year, role, labels
                 onPointerCancel={() => { swipeX.current = null; }}
             >
                 <Image key={photo.src} src={photo.src} alt={photo.alt} width={photo.width} height={photo.height}
-                    sizes="92vw" draggable={false}
+                    sizes={PHOTO_SIZES} draggable={false}
                     className="block h-auto max-h-[85dvh] w-auto max-w-[92vw] rounded-panel object-contain" />
                 <figcaption className="absolute inset-x-0 bottom-0 flex flex-col gap-1 rounded-b-panel bg-gradient-to-t from-black/80 to-transparent px-5 pb-4 pt-14">
                     <span dir="ltr" className="text-start font-sans text-lg font-semibold leading-tight md:text-xl">{event}</span>
