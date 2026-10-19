@@ -11,6 +11,8 @@ export const fr = {
         arChannel: "Chaîne en arabe",
         enChannel: "Chaîne en anglais",
         footer: "Mahfoudh Arous. Tous droits réservés.",
+        visits: "visites du site",
+        visitsSince: "depuis le 19 oct. 2026",
         nav: {
             home: "Accueil",
             about: "À propos",
@@ -148,7 +150,8 @@ export const fr = {
                 "Les messages restent privés sauf si vous cochez la case de publication. Même dans ce cas, je relis chaque message avant qu'il n'apparaisse, et seuls le message, le pseudo, le type et la date sont affichés.",
                 "Votre e-mail sert uniquement à vous répondre. Il n'est jamais publié, partagé ni ajouté à une liste de diffusion.",
                 "Pour limiter le spam, un identifiant haché dérivé de votre adresse IP, renouvelé chaque jour, est conservé 24 heures. Votre adresse IP elle-même n'est pas stockée.",
-                "Ce site compte les visites avec Vercel Web Analytics, qui n'utilise aucun cookie et n'enregistre que des données agrégées."
+                "Ce site compte les visites avec Vercel Web Analytics, qui n'utilise aucun cookie et n'enregistre que des données agrégées.",
+                "Le compteur public utilise un identifiant aléatoire dans le stockage de session de cet onglet pour une fenêtre de visite de 30 minutes. Supabase le conserve 24 heures, puis le supprime lors d'une nouvelle visite, afin d'éviter les doublons. Aucune adresse IP ni historique de navigation n'est enregistré ; le total agrégé est conservé."
             ],
             deleteRequest: "Pour faire supprimer un message ou votre e-mail, écrivez à"
         }

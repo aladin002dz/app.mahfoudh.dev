@@ -1,4 +1,5 @@
 import Link from "next/link";
+import VisitCounter from "./VisitCounter";
 import { Mail } from "lucide-react";
 import { Github, Linkedin, Facebook, Twitter, Bluesky, Youtube } from "./Icons";
 import type { Dictionary } from "../../lib/dictionary";
@@ -43,6 +44,7 @@ export default function SiteFooter({ lang, dict }: { lang: string; dict: Diction
                 <Link href={guestbook} className={linkClass}>{dict.guestbook.nav}</Link>
                 <Link href={`${guestbook}#privacy`} className={linkClass}>{dict.guestbook.privacyLink}</Link>
             </nav>
+            <VisitCounter lang={lang} label={dict.home.visits} since={dict.home.visitsSince} />
         </footer>
     );
 }
