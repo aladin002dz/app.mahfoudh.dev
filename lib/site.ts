@@ -1,4 +1,4 @@
-export const SITE_URL = "https://mahfoudh.dev";
+export const SITE_URL = "https://app.mahfoudh.dev";
 
 export const CONTACT_EMAIL = "hello@mahfoudh.dev";
 
