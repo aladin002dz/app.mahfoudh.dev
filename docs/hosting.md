@@ -3,12 +3,12 @@
 | Site | Repository | Hosting |
 | --- | --- | --- |
 | https://mahfoudh.dev | aladin002dz/aladin002dz.github.io | GitHub Pages, static Next.js export |
-| https://app.mahfoudh.dev | aladin002dz/mahfoudh.dev | Vercel, dynamic Next.js |
+| https://app.mahfoudh.dev | aladin002dz/app.mahfoudh.dev | Vercel, dynamic Next.js |
 | https://mahfoudh.dev/777-ai-in-practice-slides/ | aladin002dz/777-ai-in-practice-slides | GitHub Pages, project base path |
 
 The static portfolio preserves the pre-vercel-2026-10-19 design and content. The dynamic version retains the guestbook, server APIs, visit counter and existing design system: https://github.com/aladin002dz/my-design-system. No redesign was introduced for this split.
 
-Push static portfolio changes to aladin002dz.github.io/main; its Actions workflow exports to out/ and deploys Pages. Push dynamic changes to mahfoudh.dev/main; Vercel deploys them to app.mahfoudh.dev. These are independent sources: changes do not synchronize automatically.
+Push static portfolio changes to aladin002dz.github.io/main; its Actions workflow exports to out/ and deploys Pages. Push dynamic changes to app.mahfoudh.dev/main; Vercel deploys them to app.mahfoudh.dev. These are independent sources: changes do not synchronize automatically.
 
 Cloudflare DNS-only CNAME records:
 - @ -> aladin002dz.github.io (Cloudflare flattens the apex record)
@@ -22,4 +22,4 @@ Local working copies prepared for this split:
 - C:/work/workshops/workshop-2026-10-10/portfolio-dynamic
 - C:/work/workshops/workshop-2026-10-10/online-session-15-10-2026/workshop-practical-ai-slides-ii
 
-Do not rename the repositories again as part of routine deployment. The repository named mahfoudh.dev contains the dynamic app; the domain assignment is controlled by hosting settings and DNS, not that repository name.
+Do not rename the repositories again as part of routine deployment. The repository named app.mahfoudh.dev contains the dynamic app; the domain assignment is controlled by hosting settings and DNS, not that repository name.
