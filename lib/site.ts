@@ -1,5 +1,8 @@
 export const SITE_URL = "https://app.mahfoudh.dev";
 
+/** Preferred origin for the duplicated portfolio; app pages keep SITE_URL. */
+export const PORTFOLIO_URL = "https://mahfoudh.dev";
+
 export const CONTACT_EMAIL = "hello@mahfoudh.dev";
 
 export const YT_FR = "https://www.youtube.com/@mahfoudh-tech-fr";
@@ -27,7 +30,7 @@ export function isLocale(value: string): value is Locale {
  * working, but it declares the bare domain as its canonical URL.
  */
 export function localeUrl(lang: string): string {
-    return lang === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${lang}`;
+    return lang === DEFAULT_LOCALE ? PORTFOLIO_URL : `${PORTFOLIO_URL}/${lang}`;
 }
 
 /** Site-relative path of a page in a locale: English at the bare path, others under /<lang>. */
@@ -46,10 +49,10 @@ export const GUESTBOOK_ALTERNATES: Record<string, string> = {
 };
 
 export const LANGUAGE_ALTERNATES: Record<string, string> = {
-    en: SITE_URL,
-    fr: `${SITE_URL}/fr`,
-    ar: `${SITE_URL}/ar`,
-    "x-default": SITE_URL,
+    en: PORTFOLIO_URL,
+    fr: `${PORTFOLIO_URL}/fr`,
+    ar: `${PORTFOLIO_URL}/ar`,
+    "x-default": PORTFOLIO_URL,
 };
 
 export const OG_IMAGE = {

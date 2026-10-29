@@ -3,7 +3,7 @@ import "../globals.css";
 import InlineScript from "../components/InlineScript";
 import SiteAnalytics from "../components/SiteAnalytics";
 import { fontVariables, themeInitScript } from "../fonts";
-import { IS_PRODUCTION, SITE_URL, LANGUAGE_ALTERNATES, OG_IMAGE } from "../../lib/site";
+import { IS_PRODUCTION, SITE_URL, PORTFOLIO_URL, LANGUAGE_ALTERNATES, OG_IMAGE } from "../../lib/site";
 
 const title = "Mahfoudh Arous | Senior Software Engineer & Full-stack Developer";
 const description =
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     creator: "Mahfoudh Arous",
     publisher: "Mahfoudh Arous",
     alternates: {
-        canonical: SITE_URL,
+        canonical: PORTFOLIO_URL,
         languages: LANGUAGE_ALTERNATES,
     },
     openGraph: {
         title,
         description,
-        url: SITE_URL,
+        url: PORTFOLIO_URL,
         siteName: "Mahfoudh Arous Portfolio",
         locale: "en_US",
         type: "website",
