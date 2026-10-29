@@ -171,3 +171,28 @@ body { min-height: 100vh; background: var(--bg); color: var(--text); line-height
 @media (prefers-reduced-motion: reduce) {
   .hero-point-field, .hero-motion-toggle { display: none; }
 }
+
+/* Header navigation and document reading progress share the brand accent. */
+.desktop-section-nav { display: flex; align-items: center; gap: 20px; margin-inline-start: auto; }
+.section-nav-link { color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; text-decoration: none; text-underline-offset: 7px; }
+.section-nav-link:hover, .section-nav-link[aria-current="location"] { color: var(--accent-ink); text-decoration: underline; }
+.scroll-progress-track { position: absolute; inset-inline: 0; bottom: -1px; height: 2px; pointer-events: none; }
+.scroll-progress-fill { height: 100%; width: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+[dir="rtl"] .scroll-progress-fill { transform-origin: right; }
+.mobile-section-menu { display: none; }
+main section[id] { scroll-margin-top: calc(var(--site-header-height, 64px) + 20px); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (max-width: 1023px) {
+  .desktop-section-nav { display: none; }
+  .mobile-section-menu { display: block; }
+  .mobile-menu-trigger { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; list-style: none; color: var(--text); }
+  .mobile-menu-trigger::-webkit-details-marker { display: none; }
+  .mobile-menu-trigger:hover { background: var(--sunken); }
+  .mobile-section-nav { position: absolute; inset-inline: 0; top: 100%; display: grid; gap: 4px; padding: 12px 24px; border-bottom: 1px solid var(--line); background: var(--bg); box-shadow: var(--shadow-card); }
+  .mobile-section-nav .section-nav-link { padding: 10px 0; font-size: 15px; }
+}
+@media (max-width: 420px) {
+  .header-row { gap: 8px; padding-inline: 16px; }
+  .header-row > a { font-size: 20px; }
+  .header-row > div { gap: 6px; }
+}

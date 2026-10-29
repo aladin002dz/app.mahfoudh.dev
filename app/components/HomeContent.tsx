@@ -90,7 +90,7 @@ export default async function HomeContent({ lang }: { lang: string }) {
 
     return (
         <div className={`min-h-screen bg-bg text-ink ${isArabic ? "font-arabic" : "font-sans"}`}>
-            <SiteHeader lang={lang} />
+            <SiteHeader lang={lang} home />
 
             <main>
                 <HeroSurface lang={lang}>
