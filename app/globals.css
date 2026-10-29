@@ -82,3 +82,92 @@ body { min-height: 100vh; background: var(--bg); color: var(--text); line-height
     linear-gradient(90deg, var(--line-subtle) 1px, transparent 1px) 0 0 / 32px 32px,
     var(--bg);
 }
+
+
+/* Shared motion language: one short entrance, then action-led feedback.
+   Content stays visible without JS and without scroll-timeline support. */
+@keyframes intro-settle {
+  from { opacity: 0.65; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes portrait-settle {
+  from { opacity: 0.7; transform: translateY(16px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes section-arrive {
+  from { opacity: 0.7; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .motion-intro > :not(form):not(:has(form)) {
+    animation: intro-settle 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .motion-intro > :nth-child(2) { animation-delay: 60ms; }
+  .motion-intro > :nth-child(3) { animation-delay: 110ms; }
+  .motion-intro > :nth-child(4) { animation-delay: 150ms; }
+  .motion-portrait {
+    animation: portrait-settle 700ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+  }
+  /* Only the two editorial section openings follow scroll progress.
+     End early so the section is settled before visitors start reading. */
+  @supports (animation-timeline: view()) {
+    .motion-reveal {
+      animation: section-arrive linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 65%;
+    }
+    .motion-reveal:focus-within { animation: none; }
+  }
+  .motion-channel { transition: border-color 180ms ease-out, transform 180ms ease-out; }
+  .motion-photo img { transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1); }
+  .motion-photo:focus-visible img { transform: scale(1.025); }
+  @media (hover: hover) and (pointer: fine) {
+    .motion-channel:hover { transform: translateY(-3px); }
+    .motion-photo:hover img { transform: scale(1.025); }
+  }
+}
+/* Include existing card lifts, press offsets, and loading pulses in the opt-out. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  article:hover, a:active, button:active { translate: none; transform: none; }
+}
+
+/* A restrained point field, with a CSS-only fallback before hydration. */
+.hero-surface {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background-image: radial-gradient(circle, color-mix(in oklch, var(--subtle) 30%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.hero-surface[data-field-ready] { background-image: none; }
+.hero-point-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero-motion-toggle {
+  position: absolute;
+  inset-inline-end: 20px;
+  bottom: 16px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--muted);
+  background: var(--bg);
+  cursor: pointer;
+}
+.hero-motion-toggle:hover { color: var(--accent); border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+  .hero-point-field, .hero-motion-toggle { display: none; }
+}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HeroSurface from "./HeroSurface";
 import { Mail, ArrowUpRight, MessageSquare } from "lucide-react";
 import { Linkedin } from "./Icons";
 import ProjectCard from "./ProjectCard";
@@ -92,9 +93,9 @@ export default async function HomeContent({ lang }: { lang: string }) {
             <SiteHeader lang={lang} />
 
             <main>
-                <section className="hairline-grid border-b border-line">
+                <HeroSurface lang={lang}>
                     <div className="mx-auto grid max-w-[1120px] items-center gap-10 px-6 py-16 md:grid-cols-[1.4fr_1fr] md:gap-16 md:py-28">
-                        <div className="flex flex-col gap-6">
+                        <div className="motion-intro flex flex-col gap-6">
                             <SectionLabel index="00">{dict.home.hello}</SectionLabel>
                             <h1 className={`text-[clamp(44px,7vw,80px)] font-semibold leading-[1.05] text-balance ${isArabic ? "" : "tracking-[-0.035em]"}`}>
                                 {dict.home.name}<span className="text-accent">.</span>
@@ -111,13 +112,13 @@ export default async function HomeContent({ lang }: { lang: string }) {
                                 </Button>
                             </div>
                         </div>
-                        <div className="justify-self-center w-full max-w-[380px] aspect-[4/5] overflow-hidden rounded-card border border-line bg-sunken">
+                        <div className="motion-portrait justify-self-center w-full max-w-[380px] aspect-[4/5] overflow-hidden rounded-card border border-line bg-sunken">
                             <Image src="/me.webp" alt="Mahfoudh Arous" width={460} height={575} className="h-full w-full object-cover" priority />
                         </div>
                     </div>
-                </section>
+                </HeroSurface>
 
-                <section id="projects" className="mx-auto flex max-w-[1120px] flex-col gap-6 px-6 py-16 md:py-22">
+                <section id="projects" className="motion-reveal mx-auto flex max-w-[1120px] flex-col gap-6 px-6 py-16 md:py-22">
                     <SectionLabel index="01">{dict.home.projects}</SectionLabel>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {projects.map((project) => (
@@ -126,7 +127,7 @@ export default async function HomeContent({ lang }: { lang: string }) {
                     </div>
                 </section>
 
-                <section id="youtube" className="border-y border-line bg-sunken">
+                <section id="youtube" className="motion-reveal border-y border-line bg-sunken">
                     <div className="mx-auto grid max-w-[1120px] items-center gap-6 px-6 py-14 md:grid-cols-2 md:py-18">
                         <div className="flex flex-col gap-4">
                             <SectionLabel index="02" tone="clay">YouTube</SectionLabel>
@@ -139,7 +140,7 @@ export default async function HomeContent({ lang }: { lang: string }) {
                                 { code: "EN", label: dict.home.enChannel, href: YT_EN },
                             ].map((c) => (
                                 <a key={c.code} href={c.href} target="_blank" rel="noopener noreferrer"
-                                    className="flex items-center gap-3.5 rounded-panel border border-line bg-surface px-5 py-4 text-ink transition-colors duration-150 hover:border-clay">
+                                    className="motion-channel flex items-center gap-3.5 rounded-panel border border-line bg-surface px-5 py-4 text-ink transition-colors duration-150 hover:border-clay">
                                     <span className="grid h-10 w-10 place-items-center rounded-btn bg-clay-soft font-mono text-[13px] font-semibold text-clay">{c.code}</span>
                                     <span className="flex-1 font-medium">{c.label}</span>
                                     <ArrowUpRight className="h-4 w-4 text-clay rtl:-scale-x-100" />

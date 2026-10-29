@@ -21,7 +21,7 @@ export default function TalkCard({ event, year, role, description, photos, light
             {cover && (
                 <div className="flex flex-col gap-2">
                     <button type="button" aria-haspopup="dialog" onClick={() => setOpenIndex(0)}
-                        className="block aspect-[4/3] cursor-zoom-in overflow-hidden rounded-panel border border-line bg-sunken">
+                        className="motion-photo block aspect-[4/3] cursor-zoom-in overflow-hidden rounded-panel border border-line bg-sunken">
                         <Image src={cover.src} alt={cover.alt} width={cover.width} height={cover.height} loading="lazy"
                             sizes="(min-width: 1120px) 340px, (min-width: 768px) 45vw, 100vw" className="h-full w-full object-cover" />
                     </button>
@@ -29,7 +29,7 @@ export default function TalkCard({ event, year, role, description, photos, light
                         <div className="grid grid-cols-4 gap-2">
                             {rest.map((p, i) => (
                                 <button type="button" key={p.src} aria-haspopup="dialog" onClick={() => setOpenIndex(i + 1)}
-                                    className="block aspect-[4/3] cursor-zoom-in overflow-hidden rounded-btn border border-line bg-sunken">
+                                    className="motion-photo block aspect-[4/3] cursor-zoom-in overflow-hidden rounded-btn border border-line bg-sunken">
                                     <Image src={p.src} alt={p.alt} width={p.width} height={p.height} loading="lazy"
                                         sizes="90px" className="h-full w-full object-cover" />
                                 </button>

@@ -112,7 +112,7 @@ export default async function GuestbookContent({ lang, before }: { lang: string;
             <SiteHeader lang={lang} />
 
             <main className="mx-auto flex max-w-[1120px] flex-col gap-16 px-6 py-16 md:py-22">
-                <section className="flex flex-col gap-6">
+                <section className="motion-intro flex flex-col gap-6">
                     <SectionLabel>{t.title}</SectionLabel>
                     <h1 className={`max-w-[22ch] text-[clamp(32px,5vw,52px)] font-semibold leading-[1.1] text-balance ${isArabic ? "" : "tracking-[-0.03em]"}`}>
                         {t.prompt}
